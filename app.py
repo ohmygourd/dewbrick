@@ -1,3 +1,4 @@
+import json
 import tornado.ioloop
 import tornado.web
 from tornado.websocket import WebSocketHandler
@@ -33,7 +34,7 @@ class SocketHandler(WebSocketHandler):
         print("WebSocket opened")
 
     def on_message(self, message):
-        self.write_message(u"You said: " + message)
+        self.write_message(json.dumps(self.DEMO_TURN))
 
     def on_close(self):
         print("WebSocket closed")
