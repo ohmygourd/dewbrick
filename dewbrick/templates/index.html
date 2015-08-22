@@ -39,11 +39,11 @@
       </div>
 
       <div class="jumbotron">
-        <h1>
+        <h1 id="jumboTurn">
             {% if player_turn %}
                 Your Turn
             {% else %}
-                {{ opponent_name }}'s turn
+                Their turn
             {% end %}
         </h1>
         <h1>
@@ -56,11 +56,11 @@
         <div class="col-lg-6">
             {% if player_turn %}
               {% for attribute in card['attributes'] %}
-              <h4><a id="{{ player_id }}-{{ attribute['name'] }}" class="card_attr" href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
+              <h4 class="card_attr" id="{{ attribute['name'] }}"><a href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
               {% end %}
             {% else %}
               {% for attribute in card['attributes'] %}
-              <h4>{{ attribute['name'] }}: {{ attribute['value'] }}</h4>
+              <h4 id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
               {% end %}
             {% end %}
         </div>

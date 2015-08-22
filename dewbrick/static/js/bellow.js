@@ -21,6 +21,18 @@ $(function() {
     }
 
     function onMessage(evt) {
+        card = JSON.parse(evt.data);
+        for (key in card.attributes) {
+            if (card.turn){
+                // <a href="#">agility: 1</a>
+                $( "#jumboTurn").html("Your turn");
+                $( "#" + card.attributes[key].name ).html('<a href="#">' + card.attributes[key].name + ':' + card.attributes[key].value + "</a>");
+            } else {
+                $( "#jumboTurn").html("Their turn");
+                $( "#" + card.attributes[key].name ).html(card.attributes[key].name + ':' + card.attributes[key].value) ;
+            }
+        }
+
         console.log(evt.data)
     }
 

@@ -78,7 +78,7 @@ class SocketHandler(WebSocketHandler):
     def on_message(self, message):
         #self.write_message()json.dumps(DEMO_TURN))
         # get the message and break it up
-        user_id, name = message.split('-')
+        name = message
 
         card1 = cards_p1[game_state['turn_no']]
         card2 = cards_p2[game_state['turn_no']]
@@ -100,15 +100,22 @@ class SocketHandler(WebSocketHandler):
                     self.socket2 = handle
 
         if c1 > c2:
-            self.write_message("you win player 1!")
-            self.socket2.write_message("you lose player 2!")
+            self.write_message(json.dumps({"win":True}))
+            self.socket2.write_message(json.dumps({"win":False}))
         else:
-            self.write_message("you lose player 1!")
-            self.socket2.write_message("you win player 2!")
+            self.write_message(json.dumps({"win":False}))
+            self.socket2.write_message(json.dumps({"win":True}))
 
         game_state['turn_no'] += 1
 
         # send out new card
+        if not game_state['turn_no'] % 2:
+            cards_p2[game_state['turn_no']]['turn'] = True
+            cards_p1[game_state['turn_no']]['turn'] = False
+        else:
+            cards_p1[game_state['turn_no']]['turn'] = True
+            cards_p2[game_state['turn_no']]['turn'] = False
+
         self.socket2.write_message(json.dumps(cards_p2[game_state['turn_no']]))
         self.write_message(json.dumps(cards_p1[game_state['turn_no']]))
         pass
