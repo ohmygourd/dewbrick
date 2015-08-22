@@ -1,8 +1,9 @@
+import os
 import requests
 import json
 
 BASE_URL = "https://api.majestic.com/api/json"
-
+BASE_PARAMS = {'app_api_key': os.environ.get('THEAPIKEY')}
 
 def get(cmd, params):
     querydict = {'cmd': cmd}
