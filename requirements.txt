@@ -1,2 +1,4 @@
 tornado==4.2.1
+tldextract==1.6
 requests==2.7.0
+Pyphen==0.9.1
