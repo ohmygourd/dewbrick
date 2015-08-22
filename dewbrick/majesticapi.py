@@ -2,7 +2,6 @@ import requests
 import json
 
 BASE_URL = "https://api.majestic.com/api/json"
-BASE_PARAMS = {"app_api_key": "F090534BA7196CD922CF312FECCECBF5"}
 
 
 def get(cmd, params):
