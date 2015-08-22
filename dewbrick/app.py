@@ -5,6 +5,7 @@ import tornado.ioloop
 import tornado.web
 from tornado.websocket import WebSocketHandler
 from tornado import template
+from majesticapi import GameDataSet
 
 DEMO_TURN = {
     'player_id': 'abc',
@@ -84,6 +85,8 @@ cards_p2 = [
     }
 ]
 
+data_set = GameDataSet(20)
+cards_p1 = list(data_set.get(10))
 
 class MainHandlerP1(tornado.web.RequestHandler):
     def get(self):
@@ -217,7 +220,7 @@ class SocketHandler(WebSocketHandler):
     def on_message(self, message):
         #self.write_message()json.dumps(DEMO_TURN))
         # get the message and break it up
-        user_id, card_num, name = message.split('-')
+        user_id, name = message.split('-')
 
         card1 = cards_p1[self.game_state['turn_no']]
         card2 = cards_p2[self.game_state['turn_no']]
@@ -234,10 +237,11 @@ class SocketHandler(WebSocketHandler):
                         break
         if c1 > c2:
             self.write_message("player 1 wins!")
-
+            self.handlers[1].write_message("player 2 loses!")
         else:
+            self.handlers[1].write_message("player 2 wins!")
             self.write_message("player 2 wins!")
-        self.game_state['turn_no']
+        pass
 
     def on_close(self):
         print("WebSocket closed")
