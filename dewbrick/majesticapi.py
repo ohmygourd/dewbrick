@@ -68,6 +68,14 @@ def getIndexItemInfo(sitelist):
     else:
         yield {}
 
+def searchByKeyword(key, start=0, count=10):
+
+    cmd = 'SearchByKeyword'
+    params = {'query': key, 'scope': '1', 'from': start, 'count': count}
+    responsedata = get(cmd, params)
+    if responsedata['Code'] == 'OK':
+        for data in responsedata['DataTables']['Results']['Data']:
+            yield data['Item']
 
 def run():
     parser = argparse.ArgumentParser(description="a test thing")
@@ -80,3 +88,4 @@ def run():
 
 if __name__ == '__main__':
     run()
+    print(list(d for d in searchByKeyword('python', start=10, count=10)))
