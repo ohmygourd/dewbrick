@@ -35,27 +35,27 @@
 
     <div class="container">
       <div class="header clearfix">
-        <h3 class="text-muted">Player: {{ turn['player_name'] }}</h3>
+        <h3 class="text-muted">Player: {{ player_name }}</h3>
       </div>
 
       <div class="jumbotron">
         <h1>
-            {% if turn['player_turn'] %}
+            {% if player_turn %}
                 Your Turn
             {% else %}
-                {{ turn['opponent_name'] }}'s turn
+                {{ opponent_name }}'s turn
             {% end %}
         </h1>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
-            {% if turn['player_turn'] %}
-              {% for attribute in turn['card']['attributes'] %}
-              <h4><a id="{{ turn['player_id'] }}-{{ turn['card']['id'] }}-{{ attribute['name'] }}" class="card_attr" href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
+            {% if player_turn %}
+              {% for attribute in card['attributes'] %}
+              <h4><a id="{{ player_id }}-{{ card['id'] }}-{{ attribute['name'] }}" class="card_attr" href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
               {% end %}
             {% else %}
-              {% for attribute in turn['card']['attributes'] %}
+              {% for attribute in card['attributes'] %}
               <h4>{{ attribute['name'] }}: {{ attribute['value'] }}</h4>
               {% end %}
             {% end %}

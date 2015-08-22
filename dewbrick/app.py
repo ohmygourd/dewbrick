@@ -87,17 +87,33 @@ cards_p2 = [
 
 class MainHandlerP1(tornado.web.RequestHandler):
     def get(self):
-        cards_p1[0]['player_turn'] = 1
-        cards_p1[0]['player_id'] = 'abc',
-        cards_p1[0]['player_name'] = 'Dave Lister',
-        cards_p1[0]['opponent_name'] = 'Arnold Rimmer',
-        self.write(application.template_loader.load("index.html").generate(turn=DEMO_TURN ))
+        player_turn = True
+        player_id = 'abc'
+        player_name = 'Dave Lister'
+        opponent_name = 'Arnold Rimmer'
+        self.write(application.template_loader.load("index.html").generate(
+            card=cards_p1[0],
+            player_name=player_name,
+            player_turn=player_turn,
+            player_id=player_id,
+            opponent_name=opponent_name
+        ))
 
 
 class MainHandlerP2(tornado.web.RequestHandler):
     def get(self):
-        self.write(application.template_loader.load(
-            "index.html").generate(turn=cards_p2[0]))
+        player_turn = False
+        player_id = 'abc'
+        opponent_name = 'Dave Lister'
+        player_name = 'Arnold Rimmer'
+        self.write(application.template_loader.load("index.html").generate(
+            card=cards_p2[0],
+            player_name=player_name,
+            player_turn=player_turn,
+            player_id=player_id,
+            opponent_name=opponent_name
+        ))
+
 
 
 class SocketHandler(WebSocketHandler):
@@ -200,7 +216,28 @@ class SocketHandler(WebSocketHandler):
 
     def on_message(self, message):
         #self.write_message()json.dumps(DEMO_TURN))
-        pass
+        # get the message and break it up
+        user_id, card_num, name = message.split('-')
+
+        card1 = cards_p1[self.game_state['turn_no']]
+        card2 = cards_p2[self.game_state['turn_no']]
+
+        c1 = 0
+        c2 = 0
+
+        for values in card1['attributes']:
+            if values['name'] == name:
+                c1 = values['value']
+                for values in card2['attributes']:
+                    if values['name'] == name:
+                        c2 = values['value']
+                        break
+        if c1 > c2:
+            self.write_message("player 1 wins!")
+
+        else:
+            self.write_message("player 2 wins!")
+        self.game_state['turn_no']
 
     def on_close(self):
         print("WebSocket closed")

@@ -14,7 +14,7 @@ $(function() {
     websocket.onerror = function(evt) { onError(evt) };
 
     function onOpen(evt) {
-        doSend("WebSocket rocks");
+        //doSend("WebSocket rocks");
     }
 
     function onClose(evt) {
