@@ -28,31 +28,9 @@ DEMO_TURN = {
 }
 
 class MainHandler(tornado.web.RequestHandler):
-
-    DEMO_TURN = {
-        'player_id': 'abc',
-        'player_name': 'Dave Lister',
-        'opponent_name': 'Arnold Rimmer',
-        'player_turn': 1,
-        'card': {
-            'id': 'card_1',
-            'name': 'Card Name',
-            'image': None,
-            'description': 'This is a card',
-            'attributes': [
-
-                {'name': 'power', 'value': 9001},
-                {'name': 'strength', 'value': 100},
-                {'name': 'speed', 'value': 50},
-                {'name': 'agility', 'value': 20},
-                {'name': 'smell', 'value': 4}
-            ]
-        }
-    }
-
     def get(self):
         self.write(application.template_loader.load(
-            "index.html").generate(turn=self.DEMO_TURN))
+            "index.html").generate(turn=DEMO_TURN))
 
 
 class SocketHandler(WebSocketHandler):
