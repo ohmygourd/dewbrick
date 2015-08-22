@@ -64,10 +64,10 @@ class SocketHandler(WebSocketHandler):
     handlers = []
 
     def check_origin(self, origin):
-        handlers.append(self)
         return True
 
     def open(self):
+        handlers.append(self)
         print("WebSocket opened")
 
     def on_message(self, message):
