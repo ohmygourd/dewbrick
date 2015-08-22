@@ -20,7 +20,9 @@ $(function() {
     function onClose(evt) {
     }
 
-    function onMessage(evt) {console.log(evt.data)}
+    function onMessage(evt) {
+        console.log(evt.data)
+    }
 
     function onError(evt) { writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data); }
 
@@ -29,7 +31,7 @@ $(function() {
     $('.card_attr').click(function(e) {
 
         console.log($(this).attr('id'));
-        doSend('hello');
+        doSend($(this).attr('id'));
     });
 
 });
