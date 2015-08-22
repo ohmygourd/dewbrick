@@ -9,7 +9,7 @@ $(VIRTUALENV):
 	virtualenv -p $(WHICH_PYTHON) $(VIRTUALENV)
 
 build: $(VIRTUALENV)
-	$(PIP) install -r requirements.txt
+	$(PYTHON) setup.py develop
 
 clean:
 	-rm -r env
