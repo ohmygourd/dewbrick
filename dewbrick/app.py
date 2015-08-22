@@ -13,7 +13,7 @@ cards_p2 = list(data_set.get(11))
 
 game_state = {
     'turn_no': 1,
-    'player_turn': None,
+    'player_turn': 1,
 }
 
 
@@ -65,6 +65,8 @@ class SocketHandler(WebSocketHandler):
 
     handlers = []
 
+    socket2 = None
+
     def check_origin(self, origin):
         return True
 
@@ -92,17 +94,23 @@ class SocketHandler(WebSocketHandler):
                         c2 = values['value']
                         break
 
-        for handle in self.handlers:
-            if self is not handle:
-                if game_state['turn_no'] % 2:
-                    socket2 = handle
+        if not self.socket2:
+            for handle in self.handlers:
+                if self is not handle:
+                    self.socket2 = handle
 
         if c1 > c2:
             self.write_message("you win player 1!")
-            socket2.write_message("you lose player 2!")
+            self.socket2.write_message("you lose player 2!")
         else:
             self.write_message("you lose player 1!")
-            socket2.write_message("you win player 2!")
+            self.socket2.write_message("you win player 2!")
+
+        game_state['turn_no'] += 1
+
+        # send out new card
+        self.socket2.write_message(json.dumps(cards_p2[game_state['turn_no']]))
+        self.write_message(json.dumps(cards_p1[game_state['turn_no']]))
         pass
 
     def on_close(self):
