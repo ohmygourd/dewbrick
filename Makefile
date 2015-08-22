@@ -1,6 +1,6 @@
 #!/usr/bin/env make
 
-VIRTUALENV := .venv
+VIRTUALENV := env
 PIP = $(VIRTUALENV)/bin/pip
 
 $(VIRTUALENV):
