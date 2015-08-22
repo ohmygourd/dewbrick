@@ -6,6 +6,26 @@ import tornado.web
 from tornado.websocket import WebSocketHandler
 from tornado import template
 
+DEMO_TURN = {
+    'player_id': 'abc',
+    'player_name': 'Dave Lister',
+    'opponent_name': 'Arnold Rimmer',
+    'player_turn': 1,
+    'card': {
+        'id': 'card_1',
+        'name': 'Card Name',
+        'image': None,
+        'description': 'This is a card',
+        'attributes': [
+
+            {'name': 'power', 'value': 9001},
+            {'name': 'strength', 'value': 100},
+            {'name': 'speed', 'value': 50},
+            {'name': 'agility', 'value': 20},
+            {'name': 'smell', 'value': 4}
+        ]
+    }
+}
 
 class MainHandler(tornado.web.RequestHandler):
 
@@ -36,11 +56,24 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 class SocketHandler(WebSocketHandler):
+
+    wesisright = {
+        "turn": "1"
+    }
+
+    handlers = []
+
+    def check_origin(self, origin):
+        handlers.append(self)
+        return True
+
     def open(self):
         print("WebSocket opened")
 
     def on_message(self, message):
-        self.write_message(json.dumps(self.DEMO_TURN))
+        self.wesisright['turn'] = "2"
+        self.write_message(json.dumps(DEMO_TURN))
+        #self.write(json.dumps(DEMO_TURN))
 
     def on_close(self):
         print("WebSocket closed")
