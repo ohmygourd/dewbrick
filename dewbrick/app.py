@@ -12,6 +12,7 @@ class MainHandler(tornado.web.RequestHandler):
     DEMO_TURN = {
         'player_id': 'abc',
         'player_name': 'Dave Lister',
+        'opponent_name': 'Arnold Rimmer',
         'player_turn': 1,
         'card': {
             'id': 'card_1',

@@ -41,7 +41,7 @@
             {% if turn['player_turn'] %}
                 Your Turn
             {% else %}
-                Other player's turn
+                {{ turn['opponent_name'] }}'s turn
             {% end %}
         </h1>
       </div>
