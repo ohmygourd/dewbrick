@@ -6,7 +6,7 @@ import requests
 from itertools import cycle
 
 BASE_URL = "https://api.majestic.com/api/json"
-BASE_PARAMS = {'app_api_key': os.environ.get('THEAPIKEY')}
+BASE_PARAMS = {'app_api_key': os.environ.get('MAJESTIC_API_KEY')}
 
 
 class GameDataSet(object):
