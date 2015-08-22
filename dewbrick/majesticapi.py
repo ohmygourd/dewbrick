@@ -16,15 +16,16 @@ def get(cmd, params):
     return json.loads(response.text)
 
 
-def getIndexItemInfo(site):
+def getIndexItemInfo(sitelist):
+
     cmd = 'GetIndexItemInfo'
-    params = {'items': '2',
-              'item0': site,
-              'item1': 'chrishannam.co.uk',
+    params = {'items': len(sitelist),
               'datasource': 'fresh'}
+    items = {'item{0}'.format(i): site for i, site in enumerate(sitelist)}
+    params.update(items)
+
     responsedata = get(cmd, params)
     if responsedata['Code'] == 'OK':
-        data = responsedata['DataTables']['Results']['Data'][0]
         for data in responsedata['DataTables']['Results']['Data']:
             yield {
                 'speed': data['OutDomainsExternal'] + 1,
@@ -39,10 +40,10 @@ def getIndexItemInfo(site):
 
 def run():
     parser = argparse.ArgumentParser(description="a test thing")
-    parser.add_argument('url')
+    parser.add_argument('urls', nargs='+')
 
     args = parser.parse_args()
-    results = getIndexItemInfo(args.url)
+    results = getIndexItemInfo(args.urls)
     for result in results:
         print(result)
 
