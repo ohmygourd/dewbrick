@@ -8,6 +8,8 @@ from random import shuffle
 
 BASE_URL = "https://api.majestic.com/api/json"
 BASE_PARAMS = {'app_api_key': os.environ.get('MAJESTIC_API_KEY')}
+DEFAULT_IMG = ('http://content.mycutegraphics.com/'
+               'graphics/monster/cute-monster.png')
 
 
 class GameDataSet(object):
@@ -46,11 +48,17 @@ def get_card_stats(urls):
     if responsedata['Code'] == 'OK':
         for data in responsedata['DataTables']['Results']['Data']:
             yield {
-                'speed': data['OutDomainsExternal'] + 1,
-                'power': data['OutLinksExternal'] + 1,
-                'agility': data['OutLinksInternal'] + 1,
-                'strength': data['RefDomainsEDU'] + 1,
-                'smell': data['CitationFlow'] + 1,
+                'name': data['Item'],
+                'image': DEFAULT_IMG,
+                'description': '',
+                'attributes': [
+                    {'name': 'speed', 'value': data['OutDomainsExternal'] + 1},
+                    {'name': 'power', 'value': data['OutLinksExternal'] + 1},
+                    {'name': 'agility',
+                     'value': data['OutLinksInternal'] + 1},
+                    {'name': 'strength', 'value': data['RefDomainsEDU'] + 1},
+                    {'name': 'smell', 'value': data['CitationFlow'] + 1},
+                ]
             }
     else:
         yield {}
