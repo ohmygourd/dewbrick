@@ -106,12 +106,12 @@ class SocketHandler(WebSocketHandler):
         }
     ]
 
+    player_count = 0
+
     game_state = {
         'turn_no': 0,
         'player_turn': None,
     }
-
-    handlers = []
 
     def check_origin(self, origin):
         return True
@@ -125,6 +125,11 @@ class SocketHandler(WebSocketHandler):
 
     def on_close(self):
         print("WebSocket closed")
+
+    def init_game(self):
+        # TODO: Assign players to connecting clients
+        # and let the games begin!
+        pass
 
 
 application = tornado.web.Application([
