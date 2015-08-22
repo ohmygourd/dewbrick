@@ -51,11 +51,10 @@ application = tornado.web.Application([
     (r"/sockets", SocketHandler),
     (r"/content/(.*)", tornado.web.StaticFileHandler,
         {"path": "static"})
-])
+], debug=True)
 
 
 def main():
-    application.debug = True
     application.listen(8888)
     application.template_loader = template.Loader("templates")
 
