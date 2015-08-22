@@ -1,34 +1,35 @@
-// fill in later
+$(function() {
+    console.log('loaded');
+    // fill in later
     var wsUri = "ws://localhost:8888/sockets";
     var output;
-function init() {
-output = document.getElementById("output");
-testWebSocket();
-}
-function testWebSocket() {
+    function init() {
+    output = document.getElementById("output");
+    }
+
     websocket = new WebSocket(wsUri);
     websocket.onopen = function(evt) { onOpen(evt) };
-websocket.onclose = function(evt) { onClose(evt) };
-websocket.onmessage = function(evt) { onMessage(evt) };
-websocket.onerror = function(evt) { onError(evt) };
-}
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
 
-function onOpen(evt) {
-    writeToScreen("CONNECTED");
-    doSend("WebSocket rocks");
-}
+    function onOpen(evt) {
+        doSend("WebSocket rocks");
+    }
 
-function onClose(evt) {
-    writeToScreen("DISCONNECTED");
-}
+    function onClose(evt) {
+    }
 
-function onMessage(evt) {
-    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>'); }
+    function onMessage(evt) {console.log(evt.data)}
 
-function onError(evt) { writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data); }
+    function onError(evt) { writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data); }
 
-function doSend(message) { writeToScreen("SENT: " + message);  websocket.send(message); }
+    function doSend(message) { websocket.send(message); }
 
-function writeToScreen(message) {
+    $('.card_attr').click(function(e) {
 
-var pre = document.createElement("p"); pre.style.wordWrap = "break-word"; pre.innerHTML = message; output.appendChild(pre); }  window.addEventListener("load", init, false);
+        console.log($(this).attr('id'));
+        doSend('hello');
+    });
+
+});

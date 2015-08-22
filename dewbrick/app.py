@@ -120,6 +120,7 @@ class SocketHandler(WebSocketHandler):
 
     def open(self):
         self.handlers.append(self)
+        self.init_game()
         print("WebSocket opened")
 
     def on_message(self, message):
