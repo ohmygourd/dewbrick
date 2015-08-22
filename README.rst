@@ -1,6 +1,12 @@
 dewbrick
 ========
 
+Building and running the app
+----------------------------
+
+To install the right python dependencies and run the main app, use the ``run`` make target::
+    $ make run
+
 Setting your Majestic.com API key
 ---------------------------------
 
