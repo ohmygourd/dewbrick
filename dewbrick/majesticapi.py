@@ -52,11 +52,10 @@ def get_card_stats(urls):
     responsedata = majestic_get(cmd, params)
     if responsedata['Code'] == 'OK':
         for data in responsedata['DataTables']['Results']['Data']:
-            name = generate_name(data['Item'])
             yield {
-                'name': name,
+                'name': generate_name(data['Item']),
                 'site': data['Item'],
-                'image': generate_image(name),
+                'image': generate_image(data['Item']),
                 'description': '',
                 'attributes': [
                     {'name': 'speed', 'value': data['OutDomainsExternal'] + 1},
