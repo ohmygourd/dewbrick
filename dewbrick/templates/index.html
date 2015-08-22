@@ -55,7 +55,7 @@
         <div class="col-lg-6">
             {% if turn['player_turn'] %}
               {% for attribute in turn['card']['attributes'] %}
-              <h4><a id="{{ attribute['name'] }}" class="card_attr" href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
+              <h4><a id="{{ turn['player_id'] }}-{{ turn['card']['id'] }}-{{ attribute['name'] }}" class="card_attr" href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
               {% end %}
             {% else %}
               {% for attribute in turn['card']['attributes'] %}
