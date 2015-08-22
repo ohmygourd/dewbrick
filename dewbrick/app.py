@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import tornado.ioloop
 import tornado.web
@@ -26,7 +28,8 @@ class MainHandler(tornado.web.RequestHandler):
     }
 
     def get(self):
-        self.write(application.template_loader.load("index.html").generate(turn=self.DEMO_TURN))
+        self.write(application.template_loader.load(
+            "index.html").generate(turn=self.DEMO_TURN))
 
 
 class SocketHandler(WebSocketHandler):
@@ -43,11 +46,17 @@ class SocketHandler(WebSocketHandler):
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/sockets", SocketHandler),
-    (r"/content/(.*)", tornado.web.StaticFileHandler, {"path": "static"})
-    #(r"/", MainHandler),
+    (r"/content/(.*)", tornado.web.StaticFileHandler,
+        {"path": "static"})
 ])
 
-if __name__ == "__main__":
+
+def main():
     application.listen(8888)
     application.template_loader = template.Loader("templates")
+
+    print('Starting app on port 8888..')
     tornado.ioloop.IOLoop.current().start()
+
+if __name__ == "__main__":
+    main()

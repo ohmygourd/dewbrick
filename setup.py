@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='debrick',
+    name='dewbrick',
     description='',
     long_description=open('README.rst').read(),
     version='1.0.0',
@@ -17,6 +17,7 @@ setup(
     install_requires=open('requirements.txt').readlines(),
     entry_points={
         'console_scripts': [
+            'dewbrick-app=dewbrick.app:main',
         ],
     },
     license='Apache'
