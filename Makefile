@@ -15,7 +15,7 @@ build: $(VIRTUALENV)
 $(APP):
 	$(MAKE) build
 
-export MAJESTIC_API_KEY=$(API_KEY)
+export MAJESTIC_API_KEY
 run: $(APP)
 	$(APP)
 
