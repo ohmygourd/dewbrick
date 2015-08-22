@@ -9,15 +9,17 @@ APP := $(VIRTUALENV)/bin/dewbrick-app
 $(VIRTUALENV):
 	virtualenv -p $(WHICH_PYTHON) $(VIRTUALENV)
 
-run: $(VIRTUALENV)
-	$(APP)
-
 build: $(VIRTUALENV)
 	$(PYTHON) setup.py develop
+
+$(APP): build
+
+run: $(APP)
+	$(APP)
 
 clean:
 	-rm -r env
 	-rm -r *.egg*
 
-.PHONY: build
+.PHONY: build clean
 .DEFAULT_GOAL := build
