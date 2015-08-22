@@ -55,6 +55,7 @@ application = tornado.web.Application([
 
 
 def main():
+    application.debug = True
     application.listen(8888)
     application.template_loader = template.Loader("templates")
 
