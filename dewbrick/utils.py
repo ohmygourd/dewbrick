@@ -1,7 +1,10 @@
+import hashlib
 import tldextract
 import pyphen
 from random import choice
 
+
+ROBOHASH_URL = 'http://robohash.org/'
 TITLES = ('Mister', 'Little Miss', 'Señor', 'Queen')
 SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'PhD',
             'Ah-gowan-gowan-gowan')
@@ -27,3 +30,12 @@ def generate_name(domain):
         name = '{} {}'.format(name, choice(SUFFIXES))
 
     return name
+
+
+def generate_image(name):
+    name_hash = hashlib.md5()
+    name_hash.update(name.encode('utf-8'))
+    url = '{}/{}?set=set2&amp;size=400x400'.format(
+        ROBOHASH_URL,
+        name_hash.hexdigest())
+    return url
