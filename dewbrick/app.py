@@ -113,11 +113,13 @@ class SocketHandler(WebSocketHandler):
         'player_turn': None,
     }
 
+    handlers = []
+
     def check_origin(self, origin):
         return True
 
     def open(self):
-        handlers.append(self)
+        self.handlers.append(self)
         print("WebSocket opened")
 
     def on_message(self, message):
