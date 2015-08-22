@@ -2,8 +2,9 @@ import tldextract
 import pyphen
 from random import choice
 
-TITLES = ('Mister', 'Little Miss')
-SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'PhD')
+TITLES = ('Mister', 'Little Miss', 'Señor', 'Queen')
+SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'PhD',
+            'Ah-gowan-gowan-gowan')
 
 
 def generate_name(domain):
