@@ -11,19 +11,21 @@ class MainHandler(tornado.web.RequestHandler):
 
     DEMO_TURN = {
         'player_id': 'abc',
+        'player_name': 'Dave Lister',
         'player_turn': 1,
         'card': {
             'id': 'card_1',
             'name': 'Card Name',
             'image': None,
             'description': 'This is a card',
-            'attributes': {
-                'power': 9001,
-                'strength': 100,
-                'speed': 50,
-                'agility': 20,
-                'smell': 4
-            }
+            'attributes': [
+
+                {'name': 'power', 'value': 9001},
+                {'name': 'strength', 'value': 100},
+                {'name': 'speed', 'value': 50},
+                {'name': 'agility', 'value': 20},
+                {'name': 'smell', 'value': 4}
+            ]
         }
     }
 
