@@ -12,7 +12,8 @@ $(VIRTUALENV):
 build: $(VIRTUALENV)
 	$(PYTHON) setup.py develop
 
-$(APP): build
+$(APP):
+	$(MAKE) build
 
 run: $(APP)
 	$(APP)
