@@ -54,6 +54,7 @@ def get_card_stats(urls):
         for data in responsedata['DataTables']['Results']['Data']:
             yield {
                 'name': generate_name(data['Item']),
+                'site': data['Item'],
                 'image': DEFAULT_IMG,
                 'description': '',
                 'attributes': [

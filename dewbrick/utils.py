@@ -18,7 +18,10 @@ def generate_name(domain):
             parts.append('{}{}'.format(part[0].upper(), part[1:]))
     name = '-'.join(parts)
     dic = pyphen.Pyphen(lang='en_US')
-    name = '{} {}'.format(title, dic.inserted(name))
+    hyphenated = tuple(dic.iterate(name))
+    if hyphenated:
+        name = '-'.join(hyphenated[0])
+    name = '{} {}'.format(title, name)
 
     if choice((True, False)):
         name = '{} {}'.format(name, choice(SUFFIXES))
