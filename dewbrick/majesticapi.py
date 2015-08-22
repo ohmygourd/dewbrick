@@ -16,6 +16,9 @@ class GameDataSet(object):
     _data = []
 
     def __init__(self, prefetch=100):
+        if not BASE_PARAMS['app_api_key']:
+            raise AttributeError('You need to set MAJESTIC_API_KEY to use'
+                                 ' the Majestic.com API')
         if not self._data:
             urls = list(find_urls('python', 0, prefetch))
             self.load_data(urls)
