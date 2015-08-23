@@ -70,6 +70,7 @@ $(function() {
     function doSend(message) { websocket.send(message); }
 
     $('.card_attr').click(function(e) {
+        e.preventDefault();
 
         console.log($(this).attr('id'));
         doSend($(this).attr('id'));
