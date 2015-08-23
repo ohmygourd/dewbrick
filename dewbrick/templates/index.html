@@ -74,11 +74,11 @@
             {% if player_turn %}
               {% for i, attribute in enumerate(card['attributes']) %}
 
-              <h4 class="card_attr{%if not i % 2%} row-even{%end%}"id="{{ attribute['name'] }}"><a href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
+              <h4 class="card_attr{%if not i % 2%} row-even{%end%}" id="{{ attribute['name'] }}"><a href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
               {% end %}
             {% else %}
-              {% for attribute in card['attributes'] %}
-              <h4 class="card_attr" id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
+              {% for i, attribute in enumerate(card['attributes']) %}
+              <h4 class="card_attr{%if not i % 2%} row-even{%end%}" id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
               {% end %}
             {% end %}
        </div>
