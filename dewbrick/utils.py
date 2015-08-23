@@ -26,8 +26,9 @@ def save_image_cache():
 GOOGLE_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed'
 ROBOHASH_URL = 'http://robohash.org/'
 TITLES = ('Mister', 'Little Miss', 'Señor', 'Queen')
-SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'PhD',
-            'Ah-gowan-gowan-gowan')
+SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'the Librarian',
+            'Ah-gowan-gowan-gowan', 'in the lounge with a wrench',
+            'aaaaaaargh', '(help me I\'m trapped in a museum)')
 IMAGE_CACHE = get_image_cache()
 
 
@@ -47,7 +48,7 @@ def generate_name(domain):
         name = '-'.join(hyphenated[0])
     name = '{} {}'.format(title, name)
 
-    if choice((True, False)):
+    if choice((True, False, None)):
         name = '{} {}'.format(name, choice(SUFFIXES))
 
     return name
