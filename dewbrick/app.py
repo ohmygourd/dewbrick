@@ -53,7 +53,6 @@ class MainHandlerP2(tornado.web.RequestHandler):
         ))
 
 
-
 class SocketHandler(WebSocketHandler):
 
     players = [
@@ -82,7 +81,6 @@ class SocketHandler(WebSocketHandler):
         print("WebSocket opened")
 
     def on_message(self, message):
-        #self.write_message()json.dumps(DEMO_TURN))
         # get the message and break it up
         name = message
 
@@ -109,20 +107,37 @@ class SocketHandler(WebSocketHandler):
 
         if c1 > c2:
             scoring['p1_score'] += 1
-            self.sockets['sock1'].write_message(json.dumps({"win":True}))
-            self.sockets['sock2'].write_message(json.dumps({"win":False}))
+            self.sockets['sock1'].write_message(json.dumps({
+                "win": True,
+                "my_score": scoring['p1_score'],
+                "opponent_score": scoring['p2_score'],
+            }))
+            self.sockets['sock2'].write_message(json.dumps({
+                "win": False,
+                "my_score": scoring['p2_score'],
+                "opponent_score": scoring['p1_score'],
+            }))
         else:
             scoring['p2_score'] += 1
-            self.sockets['sock1'].write_message(json.dumps({"win":False}))
-            self.sockets['sock2'].write_message(json.dumps({"win":True}))
-
+            self.sockets['sock1'].write_message(json.dumps({
+                "win": False,
+                "my_score": scoring['p1_score'],
+                "opponent_score": scoring['p2_score'],
+            }))
+            self.sockets['sock2'].write_message(json.dumps({
+                "win": True,
+                "my_score": scoring['p2_score'],
+                "opponent_score": scoring['p1_score'],
+            }))
 
         if scoring['p1_score'] == scoring['winning_score']:
             self.sockets['sock1'].write_message(json.dumps({"winner": True}))
+            self.sockets['sock2'].write_message(json.dumps({"winner": False}))
             return
 
         if scoring['p2_score'] == scoring['winning_score']:
             self.sockets['sock2'].write_message(json.dumps({"winner": True}))
+            self.sockets['sock1'].write_message(json.dumps({"winner": False}))
             return
 
         # send out new card
@@ -135,9 +150,10 @@ class SocketHandler(WebSocketHandler):
 
         game_state['turn_no'] += 1
 
-        self.sockets['sock2'].write_message(json.dumps(cards_p2[game_state['turn_no']]))
-        self.sockets['sock1'].write_message(json.dumps(cards_p1[game_state['turn_no']]))
-        pass
+        self.sockets['sock2'].write_message(
+            json.dumps(cards_p2[game_state['turn_no']]))
+        self.sockets['sock1'].write_message(
+            json.dumps(cards_p1[game_state['turn_no']]))
 
     def on_close(self):
         print("WebSocket closed")

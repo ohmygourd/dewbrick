@@ -50,6 +50,16 @@ $(function() {
                 $('#loser-msg').show();
                 $('#winner-msg').hide();
             }
+            $('#my-score').html(card.my_score);
+            $('#opponent-score').html(card.opponent_score);
+        }
+        if (card.winner !== undefined) {
+            if (card.winner) {
+                $('#match-win').show();
+            } else {
+                $('#match-lose').show();
+            }
+            $('#score-label').html('Final scores:');
         }
 
         console.log(evt.data);
