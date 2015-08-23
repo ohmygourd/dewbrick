@@ -1,7 +1,7 @@
 $(function() {
     console.log('loaded');
     // fill in later
-    var wsUri = "ws://localhost:8888/sockets";
+    var wsUri = "ws://"+window.location.host+"/sockets";
     var output;
     function init() {
     output = document.getElementById("output");
