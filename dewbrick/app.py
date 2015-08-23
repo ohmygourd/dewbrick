@@ -18,9 +18,31 @@ scoring = {
 }
 
 game_state = {
+    'player_1': None,
+    'player_2': None,
     'turn_no': 1,
     'player_turn': 1,
 }
+
+
+class FrontPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write(application.template_loader.load("front.html").generate(
+            space_left=game_state['player_1'] is None
+            or game_state['player_2'] is None,
+        ))
+
+    def post(self, *args, **kwargs):
+        name = self.get_argument('name', None)
+        if name is not None:
+            if game_state['player_1'] is None:
+                game_state['player_1'] = name
+                self.redirect("/p1")
+            elif game_state['player_2'] is None:
+                game_state['player_2'] = name
+                self.redirect("/p2")
+        else:
+            self.redirect("/")
 
 
 class MainHandlerP1(tornado.web.RequestHandler):
@@ -166,6 +188,7 @@ class SocketHandler(WebSocketHandler):
 
 
 application = tornado.web.Application([
+    (r"/", FrontPageHandler),
     (r"/p1", MainHandlerP1),
     (r"/p2", MainHandlerP2),
     (r"/sockets", SocketHandler),
