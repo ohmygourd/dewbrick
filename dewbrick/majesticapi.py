@@ -22,7 +22,7 @@ class GameDataSet(object):
             raise AttributeError('You need to set MAJESTIC_API_KEY to use'
                                  ' the Majestic.com API')
         if not self._data:
-            urls = list(find_urls('python', 0, prefetch))
+            urls = list(find_urls('computers', 0, prefetch))
             self.load_data(urls)
             shuffle(self._data)
         self.data = cycle(self._data)
@@ -59,12 +59,12 @@ def get_card_stats(urls):
                 'screenshot': generate_screenshot(data['Item']),
                 'description': '',
                 'attributes': [
-                    {'name': 'speed', 'value': data['OutDomainsExternal'] + 1},
-                    {'name': 'power', 'value': data['OutLinksExternal'] + 1},
-                    {'name': 'agility',
-                     'value': data['OutLinksInternal'] + 1},
-                    {'name': 'strength', 'value': data['RefDomainsEDU'] + 1},
-                    {'name': 'smell', 'value': data['CitationFlow'] + 1},
+                    {'name': 'RefIPs', 'value': data['RefIPs'] + 1},
+                    {'name': 'RefDomainsEDU', 'value': data['RefDomainsEDU'] + 1},
+                    {'name': 'ExtBackLinksEDU',
+                     'value': data['ExtBackLinksEDU'] + 1},
+                    {'name': 'TrustMetric', 'value': data['TrustMetric'] + 1},
+                    {'name': 'CitationFlow', 'value': data['CitationFlow'] + 1},
                 ]
             }
     else:
@@ -93,7 +93,7 @@ def run():
 
     print('find_urls')
     print('='*10)
-    print(list(d for d in find_urls('python', start=10, count=10)))
+    print(list(d for d in find_urls('computers', start=10, count=10)))
     print('GameDataSet')
     print('='*10)
     dataset = GameDataSet(20)

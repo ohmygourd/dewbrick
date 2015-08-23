@@ -5,7 +5,7 @@ import tornado.ioloop
 import tornado.web
 from tornado.websocket import WebSocketHandler
 from tornado import template
-from majesticapi import GameDataSet
+from dewbrick.majesticapi import GameDataSet
 
 data_set = GameDataSet(22)
 cards_p1 = list(data_set.get(11))
