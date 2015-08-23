@@ -85,7 +85,7 @@
         <h2 id="card-name" class="text">
             {{card['name']}}
         </h2>
-            <h4><span id="site-name">({{card['site']}})</span></h4>
+            <h4><span id="site-name">  <a href="http://{{card['site']}}/" target="_blank">  {{card['site']}} </a>   </span></h4>
             {% if player_turn %}
               {% for i, attribute in enumerate(card['attributes']) %}
 
