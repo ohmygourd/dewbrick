@@ -3,7 +3,7 @@ import hashlib
 import json
 import tldextract
 import pyphen
-from random import choice
+from random import choice, randrange
 import requests
 from urllib.parse import quote
 
@@ -32,6 +32,61 @@ SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'the Librarian',
             'Ah-gowan-gowan-gowan', 'in the lounge with a wrench',
             'aaaaaaargh', '(help me I\'m trapped in a museum)')
 IMAGE_CACHE = get_image_cache()
+
+LOREMS = (
+    'One morning, when Gregor Samsa woke from troubled dreams,'
+    ' he found himself transformed in his bed into a horrible vermin.',
+    'A wonderful serenity has taken possession of my entire soul, like these'
+    ' sweet mornings of spring',
+    'The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax '
+    'quiz prog. Junk MTV quiz graced by fox whelps.',
+    'Far far away, behind the word mountains, far from the countries Vokalia'
+    ' and Consonantia, there live the blind texts.',
+    'This handy tool helps you create dummy text for all your layout needs.',
+)
+JOINERS = (
+    'and',
+    'is',
+    'of',
+    'the',
+    'this',
+    'them',
+    'their',
+    'there',
+    'then',
+    'we',
+    'that',
+    'or',
+    'with',
+    'when',
+    'which',
+    'was',
+    'will',
+    'handy',
+    'helps',
+    'you',
+    'live',
+    'graced',
+    'by',
+    'like',
+    'sweet',
+    'quick',
+    'jumped',
+    'has',
+)
+
+
+def generate_description(topics):
+    lorem = choice(LOREMS).split()
+    for topic in topics:
+        while True:
+            which_word = randrange(0, len(lorem))
+            test_word = (lorem[which_word].replace('.',
+                         '').replace(',', '').lower())
+            if test_word not in JOINERS:
+                break
+        lorem[which_word] = topic.lower()
+    return ' '.join(lorem)
 
 
 def generate_name(domain):

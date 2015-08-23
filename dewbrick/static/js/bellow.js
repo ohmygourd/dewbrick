@@ -30,6 +30,7 @@ $(function() {
         if (card.screenshot) {
             $('#screenshot').css('background-image', 'url('+card.screenshot+')');
         }
+	$('#description').html(card.description);
         for (key in card.attributes) {
             if (card.turn){
                 $( "#jumboTurn").html("Your turn");
