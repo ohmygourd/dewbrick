@@ -35,11 +35,6 @@
   <body>
 
     <div class="container">
-
-
-
-
-
         <h3 id="jumboTurn" class="text-center">
             {% if player_turn %}
                 Your Turn
@@ -48,26 +43,16 @@
             {% end %}
         </h3>
 
-
           <h3 class="text-center"><strong id="score-label">Current scores:</strong>
           You: <strong id="my-score">0</strong> /
           Your Opponent: <strong id="opponent-score">0</strong>
         </h3>
 
 
-
-
-
-
-
-
-
-
-
-<div class="row">
-<div class="col-lg-3">
+<div class="row card">
+<div class="col-lg-4 filler">
 </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4 card-top">
 
         <div id="screenshot" style="background-image: url({{card['screenshot']}});">
             <div class="screenshot-container" >
@@ -78,10 +63,10 @@
         </div>
         </div>
 </div>
-<div class="row">
-<div class="col-lg-3">
+<div class="row card">
+<div class="col-lg-4 filler">
 </div>
-<div class="col-lg-6">
+<div class="col-lg-4 card-bottom">
         <h2 id="card-name" class="text">
             {{card['name']}}
         </h2>

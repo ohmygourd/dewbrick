@@ -20,3 +20,18 @@ background-color:#D6F5FF;
 .row-odd {
 background-color:#D4E6EE;
 }
+
+.card .col-lg-4 {
+    border-right: solid 5px #000000;
+    border-left: solid 2px #000000;
+    padding: 10px 10px 10px 10px;
+}
+.card-top {
+    border-top: solid 2px #000000;
+}
+.card-bottom {
+    border-bottom: solid 5px #000000;
+}
+.card .filler {
+    border: none !important;
+}
