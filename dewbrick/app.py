@@ -103,6 +103,20 @@ class SocketHandler(WebSocketHandler):
         print("WebSocket opened")
 
     def on_message(self, message):
+        # quit early if there are not two players
+        if len(self.handlers) < 2:
+            for handle in self.handlers:
+                handle.write_message(json.dumps({
+                    'message': "waiting for opponent",
+                }))
+            return
+        if not self.sockets:
+            for handle in self.handlers:
+                if self is not handle:
+                    self.sockets['sock2'] = handle
+                else:
+                    self.sockets['sock1'] = handle
+
         # get the message and break it up
         name = message
 
@@ -119,13 +133,6 @@ class SocketHandler(WebSocketHandler):
                     if values['name'] == name:
                         c2 = values['value']
                         break
-
-        if not self.sockets:
-            for handle in self.handlers:
-                if self is not handle:
-                    self.sockets['sock2'] = handle
-                else:
-                    self.sockets['sock1'] = handle
 
         if c1 > c2:
             scoring['p1_score'] += 1

@@ -42,7 +42,7 @@ $(function() {
             $('#site-name').html(card.site);
             $('#card-name').html(card.name);
         }
-        if (card.attributes === undefined) {
+        if (card.win !== undefined) {
             if (card.win) {
                 $('#winner-msg').show();
                 $('#loser-msg').hide();
