@@ -17,6 +17,8 @@
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
 
+    <link href="/content/css/custom.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -49,7 +51,12 @@
         <h1>
             {{card['name']}}
         </h1>
-        <img src="{{card['image']}}" alt="Mountain View" style="width:304px;height:228px;">
+        <div id="screenshot" style="background-image: url({{card['screenshot']}});">
+            <div class="screenshot-container">
+                <img src="{{card['image']}}" alt="{{card['name']}}"
+                style="width:304px;height:228px;" id="monster-image">
+            </div>
+        </div>
       </div>
 
       <div class="row marketing">

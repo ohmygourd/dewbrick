@@ -22,6 +22,14 @@ $(function() {
 
     function onMessage(evt) {
         card = JSON.parse(evt.data);
+        if (card.image) {
+            var img = $('#monster-image');
+            img.attr('src', card.image);
+            img.attr('alt', card.name);
+        }
+        if (card.screenshot) {
+            $('#screenshot').css('background-image', 'url('+card.screenshot+')');
+        }
         for (key in card.attributes) {
             if (card.turn){
                 // <a href="#">agility: 1</a>

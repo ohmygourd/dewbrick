@@ -76,6 +76,6 @@ def generate_screenshot(name):
 
             IMAGE_CACHE[name] = img_data
         else:
-            IMAGE_CACHE[name] = False
+            IMAGE_CACHE[name] = ''
         save_image_cache()
     return IMAGE_CACHE[name]
