@@ -39,7 +39,7 @@
 
 
 
-      <div class="jumbotron">
+
         <h3 id="jumboTurn" class="text-center">
             {% if player_turn %}
                 Your Turn
@@ -57,7 +57,7 @@
 
 
 
-      </div>
+
 
 
 
@@ -85,7 +85,7 @@
         <h2 id="card-name" class="text">
             {{card['name']}}
         </h2>
-            <h4><span id="site-name">  <a href="http://{{card['site']}}/" target="_blank">  {{card['site']}} </a>   </span></h4>
+            <h5><span id="site-name">  <a href="http://{{card['site']}}/" target="_blank">  {{card['site']}} </a>   </span></h5>
             {% if player_turn %}
               {% for i, attribute in enumerate(card['attributes']) %}
 
