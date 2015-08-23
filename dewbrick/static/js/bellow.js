@@ -39,6 +39,8 @@ $(function() {
                 $( "#jumboTurn").html("Their turn");
                 $( "#" + card.attributes[key].name ).html(card.attributes[key].name + ':' + card.attributes[key].value) ;
             }
+            $('#site-name').html(card.site);
+            $('#card-name').html(card.name);
         }
         if (card.attributes === undefined) {
             if (card.win) {
