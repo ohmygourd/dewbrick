@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
 
     <link href="/content/css/custom.css" rel="stylesheet">
 
@@ -36,28 +35,67 @@
   <body>
 
     <div class="container">
-      <div class="header clearfix">
-          <h3 class="text-muted">Site Name: <span id="site-name">{{card['site']}}</span></h3>
-      </div>
+
+
+
 
       <div class="jumbotron">
-        <h1 id="jumboTurn">
+        <h3 id="jumboTurn" class="text-center">
             {% if player_turn %}
                 Your Turn
             {% else %}
                 Their turn
             {% end %}
-        </h1>
-        <h1 id="card-name">
-            {{card['name']}}
-        </h1>
+        </h3>
+
+
+          <h3 class="text-center"><strong id="score-label">Current scores:</strong>
+          You: <strong id="my-score">0</strong> /
+          Your Opponent: <strong id="opponent-score">0</strong>
+        </h3>
+
+
+
+
+      </div>
+
+
+
+
+
+
+<div class="row">
+        <div class="col-lg-6">
+
         <div id="screenshot" style="background-image: url({{card['screenshot']}});">
-            <div class="screenshot-container">
+            <div class="screenshot-container" >
                 <img src="{{card['image']}}" alt="{{card['name']}}"
                 style="width:304px;height:228px;" id="monster-image">
             </div>
+
         </div>
-      </div>
+        </div>
+        <div class="col-lg-6">
+        <h2 id="card-name" class="text">
+            {{card['name']}}
+        </h2>
+            <h4><span id="site-name">({{card['site']}})</span></h4>
+            {% if player_turn %}
+              {% for i, attribute in enumerate(card['attributes']) %}
+
+              <h4 class="card_attr{%if not i % 2%} row-even{%end%}"id="{{ attribute['name'] }}"><a href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
+              {% end %}
+            {% else %}
+              {% for attribute in card['attributes'] %}
+              <h4 class="card_attr" id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
+              {% end %}
+            {% end %}
+       </div>
+</div>
+
+
+
+
 
       <div id="winner-msg" class="row" style="display:None">
         <div class="col-lg-6">
@@ -71,29 +109,10 @@
           <h2 id="match-lose" class="text-center" style="display:None">You lost the match. Bad luck!</h3>
         </div>
       </div>
-      <div class="row">
-          <h3 class="text-center"><strong id="score-label">Current scores:</strong> 
-          You: <strong id="my-score">0</strong> /
-          Your Opponent: <strong id="opponent-score">0</strong>
-        </h3>
-      </div>
-      <div class="row marketing">
-        <div class="col-lg-6 col-md-offset-3">
-            {% if player_turn %}
-              {% for attribute in card['attributes'] %}
-              <h4 class="card_attr" id="{{ attribute['name'] }}"><a href="#">{{ attribute['name'] }}: {{ attribute['value'] }}</a></h4>
-              {% end %}
-            {% else %}
-              {% for attribute in card['attributes'] %}
-              <h4 class="card_attr" id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
-              {% end %}
-            {% end %}
-        </div>
-      </div>
 
-      <div id="example"></div>
 
-<div id="output"></div>
+
+    <div id="output"></div>
       <footer class="footer">
         <p>&copy; ohmygourd 2015</p>
       </footer>
