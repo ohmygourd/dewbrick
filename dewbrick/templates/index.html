@@ -60,7 +60,7 @@
               {% end %}
             {% else %}
               {% for attribute in card['attributes'] %}
-              <h4 id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
+              <h4 class="card_attr" id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
               {% end %}
             {% end %}
         </div>
