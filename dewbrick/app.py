@@ -11,6 +11,12 @@ data_set = GameDataSet(22)
 cards_p1 = list(data_set.get(11))
 cards_p2 = list(data_set.get(11))
 
+scoring = {
+    'winning_score': 5,
+    'p1_score': 0,
+    'p2_score': 0
+}
+
 game_state = {
     'turn_no': 1,
     'player_turn': 1,
@@ -65,7 +71,7 @@ class SocketHandler(WebSocketHandler):
 
     handlers = []
 
-    socket2 = None
+    sockets = {}
 
     def check_origin(self, origin):
         return True
@@ -94,30 +100,43 @@ class SocketHandler(WebSocketHandler):
                         c2 = values['value']
                         break
 
-        if not self.socket2:
+        if not self.sockets:
             for handle in self.handlers:
                 if self is not handle:
-                    self.socket2 = handle
+                    self.sockets['sock2'] = handle
+                else:
+                    self.sockets['sock1'] = handle
 
         if c1 > c2:
-            self.write_message(json.dumps({"win":True}))
-            self.socket2.write_message(json.dumps({"win":False}))
+            scoring['p1_score'] += 1
+            self.sockets['sock1'].write_message(json.dumps({"win":True}))
+            self.sockets['sock2'].write_message(json.dumps({"win":False}))
         else:
-            self.write_message(json.dumps({"win":False}))
-            self.socket2.write_message(json.dumps({"win":True}))
+            scoring['p2_score'] += 1
+            self.sockets['sock1'].write_message(json.dumps({"win":False}))
+            self.sockets['sock2'].write_message(json.dumps({"win":True}))
+
+
+        if scoring['p1_score'] == scoring['winning_score']:
+            self.sockets['sock1'].write_message(json.dumps({"winner": True}))
+            return
+
+        if scoring['p2_score'] == scoring['winning_score']:
+            self.sockets['sock2'].write_message(json.dumps({"winner": True}))
+            return
+
+        # send out new card
+        if game_state['turn_no'] % 2:
+            cards_p2[game_state['turn_no'] + 1]['turn'] = True
+            cards_p1[game_state['turn_no'] + 1]['turn'] = False
+        else:
+            cards_p1[game_state['turn_no'] + 1]['turn'] = True
+            cards_p2[game_state['turn_no'] + 1]['turn'] = False
 
         game_state['turn_no'] += 1
 
-        # send out new card
-        if not game_state['turn_no'] % 2:
-            cards_p2[game_state['turn_no']]['turn'] = True
-            cards_p1[game_state['turn_no']]['turn'] = False
-        else:
-            cards_p1[game_state['turn_no']]['turn'] = True
-            cards_p2[game_state['turn_no']]['turn'] = False
-
-        self.socket2.write_message(json.dumps(cards_p2[game_state['turn_no']]))
-        self.write_message(json.dumps(cards_p1[game_state['turn_no']]))
+        self.sockets['sock2'].write_message(json.dumps(cards_p2[game_state['turn_no']]))
+        self.sockets['sock1'].write_message(json.dumps(cards_p1[game_state['turn_no']]))
         pass
 
     def on_close(self):

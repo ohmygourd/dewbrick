@@ -35,7 +35,7 @@
 
     <div class="container">
       <div class="header clearfix">
-        <h3 class="text-muted">Player: {{ player_name }}</h3>
+        <h3 class="text-muted">Site Name: {{card['site']}}</h3>
       </div>
 
       <div class="jumbotron">
@@ -49,7 +49,7 @@
         <h1>
             {{card['name']}}
         </h1>
-        <img src="https://images.blogthings.com/thecutemonstertest/monster-7.png" alt="Mountain View" style="width:304px;height:228px;">
+        <img src="{{card['image']}}" alt="Mountain View" style="width:304px;height:228px;">
       </div>
 
       <div class="row marketing">
@@ -60,7 +60,7 @@
               {% end %}
             {% else %}
               {% for attribute in card['attributes'] %}
-              <h4 id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
+              <h4 class="card_attr" id="{{ attribute['name'] }}"> {{ attribute['name'] }}: {{ attribute['value'] }}</h4>
               {% end %}
             {% end %}
         </div>
