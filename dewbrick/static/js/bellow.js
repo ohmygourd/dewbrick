@@ -46,9 +46,11 @@ $(function() {
             if (card.win) {
                 $('#winner-msg').show();
                 $('#loser-msg').hide();
+		setTimeout(function() {$('#winner-msg').fadeOut(600);}, 1500);
             } else {
                 $('#loser-msg').show();
                 $('#winner-msg').hide();
+		setTimeout(function() {$('#loser-msg').fadeOut(600);}, 1500);
             }
             $('#my-score').html(card.my_score);
             $('#opponent-score').html(card.opponent_score);

@@ -35,6 +35,7 @@
   <body>
 
     <div class="container">
+
         <h3 id="jumboTurn" class="text-center">
             {% if player_turn %}
                 Your Turn
@@ -42,6 +43,12 @@
                 Their turn
             {% end %}
         </h3>
+	<h3 id="winner-msg" class="text-center" style="display:None">
+	    Yay, you won! <code>:)</code>
+	</h3>
+	<h3 id="loser-msg" class="text-center" style="display:None">
+	    Boo, you lost! <code>:(</code>
+	</h3>
 
           <h3 class="text-center"><strong id="score-label">Scores:</strong>
           You: <strong id="my-score">0</strong> /
@@ -83,21 +90,6 @@
             {% end %}
        </div>
 </div>
-
-
-
-      <div id="winner-msg" class="row" style="display:None">
-        <div class="col-lg-6">
-          <h3 id="round-win" class="text-center">Yey... you won that round!</h3>
-          <h2 id="match-win" class="text-center" style="display:None">Congratulations! You won the match!</h3>
-        </div>
-      </div>
-      <div id="loser-msg" class="row" style="display:None">
-        <div class="col-lg-6">
-          <h3 id="round-lose" class="text-center">Boo... you lost that round!</h3>
-          <h2 id="match-lose" class="text-center" style="display:None">You lost the match. Bad luck!</h3>
-        </div>
-      </div>
 
 
 
