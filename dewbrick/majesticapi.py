@@ -42,6 +42,20 @@ def majestic_get(cmd, params):
     return json.loads(response.text)
 
 
+def get_topics_for_site(site):
+    cmd = 'GetTopics'
+    params = {'Item': site,
+              'datasource': 'fresh',
+              'Count': 20}
+
+    responsedata = majestic_get(cmd, params)
+    if responsedata['Code'] == 'OK':
+        topics = responsedata['DataTables']['Topics']['Data']
+        return (t['Topic'].split('/')[-1] for t in topics)
+    else:
+        return None
+
+
 def get_card_stats(urls):
     cmd = 'GetIndexItemInfo'
     params = {'items': len(urls),
@@ -57,6 +71,7 @@ def get_card_stats(urls):
                 'site': data['Item'],
                 'image': generate_image(data['Item']),
                 'screenshot': generate_screenshot(data['Item']),
+                'topics': list(get_topics_for_site(data['Item'])),
                 'description': '',
                 'attributes': [
                     {'name': 'RefIPs', 'value': data['RefIPs'] + 1},
