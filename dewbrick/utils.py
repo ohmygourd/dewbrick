@@ -23,6 +23,8 @@ def save_image_cache():
         f.write(json.dumps(IMAGE_CACHE))
 
 
+DEFAULT_SHOT = ('https://upload.wikimedia.org/wikipedia/commons/7/75/'
+                'Children-404_logo.png')
 GOOGLE_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed'
 ROBOHASH_URL = 'http://robohash.org/'
 TITLES = ('Mister', 'Little Miss', 'Señor', 'Queen')
@@ -77,6 +79,6 @@ def generate_screenshot(name):
 
             IMAGE_CACHE[name] = img_data
         else:
-            IMAGE_CACHE[name] = ''
+            IMAGE_CACHE[name] = DEFAULT_SHOT
         save_image_cache()
     return IMAGE_CACHE[name]
