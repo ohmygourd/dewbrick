@@ -6,7 +6,7 @@ import requests
 from itertools import cycle
 from random import shuffle
 
-from dewbrick.utils import generate_image, generate_name
+from dewbrick.utils import generate_image, generate_name, generate_screenshot
 
 BASE_URL = "https://api.majestic.com/api/json"
 BASE_PARAMS = {'app_api_key': os.environ.get('MAJESTIC_API_KEY')}
@@ -56,6 +56,7 @@ def get_card_stats(urls):
                 'name': generate_name(data['Item']),
                 'site': data['Item'],
                 'image': generate_image(data['Item']),
+                'screenshot': generate_screenshot(data['Item']),
                 'description': '',
                 'attributes': [
                     {'name': 'speed', 'value': data['OutDomainsExternal'] + 1},

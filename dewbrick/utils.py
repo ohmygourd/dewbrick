@@ -1,9 +1,13 @@
 import hashlib
+import json
 import tldextract
 import pyphen
 from random import choice
+import requests
+from urllib.parse import quote
 
 
+GOOGLE_URL = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed'
 ROBOHASH_URL = 'http://robohash.org/'
 TITLES = ('Mister', 'Little Miss', 'Señor', 'Queen')
 SUFFIXES = ('Destroyer of Worlds', 'the Monkey Botherer', 'PhD',
@@ -39,3 +43,16 @@ def generate_image(name):
         ROBOHASH_URL,
         name_hash.hexdigest())
     return url
+
+
+def generate_screenshot(name):
+    if 'http' not in name:
+        name = 'http://{}'.format(name)
+
+    url = ('{}?url={}&screenshot=true').format(GOOGLE_URL, quote(name, ''))
+    response = requests.get(url)
+    data = json.loads(response.text)
+    if 'screenshot' in data:
+        img_data = data['screenshot']['data']
+        img_data = img_data.replace('_', '/').replace('-', '+')
+        return 'data:image/gif;base64,{}'.format(img_data)
