@@ -15,7 +15,6 @@ build: $(VIRTUALENV)
 $(APP):
 	$(MAKE) build
 
-export GOOGLE_KEY
 export MAJESTIC_API_KEY
 run: $(APP)
 	$(APP)
